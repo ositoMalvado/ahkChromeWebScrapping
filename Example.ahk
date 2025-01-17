@@ -27,5 +27,5 @@ f10::{
     web_scrap.SendJS(js_injection)
     MsgBox web_scrap.SendJS("greetings")["value"]
     text := "Thank you for watching from AHK!"
-    web_scrap.SendJS("document.body.appendChild(document.createElement(`"p`')).textContent = '" text "'")    
+    web_scrap.SendJS("alert('" text "')")
 }
