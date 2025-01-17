@@ -11,7 +11,7 @@ f10::{
         web_scrap.Navigate("https://www.google.com/", true)
     }
     ToolTip "Injecting JS"
-    web_scrap.SendJS("alert('Hello from AHK!');")
+    ; web_scrap.SendJS("alert('Hello from AHK!');")
     search_element := "document.querySelectorAll('textarea')[0]"
     search_button := "document.querySelectorAll('center>input[role=`"button`"]')[1]"
     ToolTip "Searching"
@@ -38,4 +38,18 @@ f10::{
     text := "Thank you for watching from AHK!"
     ToolTip "Sending alert with AHK variable value"
     web_scrap.SendJS("alert('" text "')")
+    ToolTip "Waiting for load"
+    web_scrap.WaitForLoad()
+    loop 10{
+        ToolTip "Scrolling to bottom"
+        web_scrap.Scroll("bottom")
+        Sleep 100
+        ToolTip "Scrolling to top"
+        web_scrap.Scroll("top")
+        Sleep 100
+    }
+    ToolTip "Closing"
+    web_scrap.Close()
+    Sleep 1000
+    ToolTip
 }

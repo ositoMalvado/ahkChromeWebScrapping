@@ -14,6 +14,14 @@ class WebScrapping {
         this.working := false
     }
 
+    Close(){
+        if !IsObject(this.page)
+            return false
+        this.page.Close()
+        this.page := false
+        return true
+    }
+
     WaitForLoad(){
         if !IsObject(this.page)
             return false
@@ -71,6 +79,31 @@ class WebScrapping {
             })()'
             )
         return this.page.Evaluate(js)["value"]
+    }
+
+
+    Scroll(pos := "bottom", amount := 0) {
+        if (pos = "bottom") {
+            ; Scroll hasta el final de la página
+            this.page.Call("Runtime.evaluate", {
+                expression: "window.scrollTo({top: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight), behavior: 'smooth'})"
+            })
+        } else if (pos = "top") {
+            ; Scroll hasta el inicio de la página
+            this.page.Call("Runtime.evaluate", {
+                expression: "window.scrollTo({top: 0, behavior: 'smooth'})"
+            })
+        } else if (pos = "specific") {
+            ; Scroll a una posición específica
+            this.page.Call("Runtime.evaluate", {
+                expression: "window.scrollTo({top: " amount ", behavior: 'smooth'})"
+            })
+        } else if (pos = "relative") {
+            ; Scroll relativo a la posición actual
+            this.page.Call("Runtime.evaluate", {
+                expression: "window.scrollBy({top: " amount ", behavior: 'smooth'})"
+            })
+        }
     }
 
     GetElementPosition(selector) {
