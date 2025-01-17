@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0
-#include WebScrapping.ahk
 #SingleInstance Force
 
+#include WebScrapping.ahk
 web_scrap := WebScrapping()
 
 f10::{
