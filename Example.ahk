@@ -10,8 +10,6 @@ f10::{
         web_scrap.SetAnyPage()
         web_scrap.Navigate("https://www.google.com/", true)
     }
-    ToolTip "Injecting JS"
-    ; web_scrap.SendJS("alert('Hello from AHK!');")
     search_element := "document.querySelectorAll('textarea')[0]"
     search_button := "document.querySelectorAll('center>input[role=`"button`"]')[1]"
     ToolTip "Searching"
