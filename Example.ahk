@@ -3,10 +3,11 @@
 
 #include WebScrapping.ahk
 web_scrap := WebScrapping()
+; web_scrap := WebScrapping(chrome_path := "C:\Users\Julian\AppData\Local\Chromium\Application\chrome.exe")
 
 f10::{
     ToolTip "Setting Page"
-    if !web_scrap.SetPageByTitle("Google") {
+    if !web_scrap.SetPageByURL("https://www.google.com/") {
         web_scrap.SetAnyPage()
         web_scrap.Navigate("https://www.google.com/", true)
     }
@@ -40,6 +41,7 @@ f10::{
     }
     ToolTip "Closing"
     web_scrap.Close()
+    web_scrap.Kill()
     Sleep 1000
     ToolTip
 }
