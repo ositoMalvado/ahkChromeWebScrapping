@@ -5,13 +5,23 @@ SetTitleMatchMode 2
 
 
 class WebScrapping {
-    __New() {
+    __New(chrome_path := '') {
+        this.chrome_path := chrome_path
         this.working := true
-        this.navigator := Chrome()
-        if !WinExist("ahk_exe chrome.exe")
-            WinWait("ahk_exe chrome.exe")
         this.page := false
         this.working := false
+        ; if !WinExist("ahk_exe chrome.exe")
+            ; WinWait("ahk_exe chrome.exe")
+    }
+
+    CheckChrome(){
+        if !this.CheckPage()
+            if !WinExist("ahk_exe chrome.exe"){
+                Run "chrome.exe --remote-debugging-port=9222 --remote-allow-origins=*",,,&chrome_pid
+                ProcessWait(chrome_pid)
+            }
+            WinWait("ahk_exe chrome.exe")
+            this.page := this.SetAnyPage()
     }
 
     Close(){
@@ -38,14 +48,15 @@ class WebScrapping {
     }
 
     SetAnyPage() {
-        this.page := this.navigator.GetPage()
+        this.page := Chrome().GetPage()
         if !this.CheckPage()
             return false
         return true
     }
 
     SetPageByTitle(title) {
-        this.page := this.navigator.GetPageByTitle(title, 'contains')
+        this.CheckChrome()
+        this.page := Chrome().GetPageByTitle(title, 'contains')
         return this.CheckPage()
     }
 

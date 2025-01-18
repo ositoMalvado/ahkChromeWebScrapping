@@ -29,24 +29,16 @@ f10::{
         Sleep 100
     ToolTip "Clicking repo"
     web_scrap.ClickElement(web_scrap_repo, "left", 1)
-    web_scrap.WaitForLoad()
-    js_injection := "const greetings = 'greetings from Argentina'"
-    ToolTip "Injecting JS"
-    web_scrap.SendJS(js_injection)
-    ToolTip "Getting value from JS"
-    MsgBox web_scrap.SendJS("greetings")["value"]
-    text := "Thank you for watching from AHK!"
-    ToolTip "Sending alert with AHK variable value"
-    web_scrap.SendJS("alert('" text "')")
     ToolTip "Waiting for load"
+    Sleep 500
     web_scrap.WaitForLoad()
     loop 10{
         ToolTip "Scrolling to bottom"
         web_scrap.Scroll("bottom")
-        Sleep 100
+        Sleep 10
         ToolTip "Scrolling to top"
         web_scrap.Scroll("top")
-        Sleep 100
+        Sleep 10
     }
     ToolTip "Closing"
     web_scrap.Close()
